@@ -33,8 +33,6 @@ let ball = new Ball();
 let hole = new Hole('#000', false);
 let winHole = new Hole('#ff0', true);
 
-let maxX = canvas.width;
-let maxY = canvas.height;
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -71,7 +69,13 @@ function draw() {
 }
 
 
-
+/**
+ * check if ball reaches hole
+ *
+ * @param {*} ball
+ * @param {*} hole
+ * @returns
+ */
 function checkCollisions(ball, hole) {
     let dx = hole.x - ball.x;
     let dy = hole.y - ball.y;
@@ -85,7 +89,10 @@ function checkCollisions(ball, hole) {
 setInterval(draw, 10);
 
 
-
+/**
+ * Ball class
+ *
+ */
 function Ball() {
     this.Radius = 10;
     this.x = canvas.width/2;
@@ -107,6 +114,7 @@ function Ball() {
 
     this.update = function() {
 
+        // set speed and direction using phone tilt
             if (d["x"] > 0)  {
                 this.speedX = -1;
                 // this.speedY = 0;
@@ -133,7 +141,7 @@ function Ball() {
             }
         
         
-
+        // ball reaches canvas border so it stops
         if(this.x + this.Radius > canvas.width || this.x  - this.Radius < 0) {
             this.speedX = 0;
         }
@@ -148,7 +156,12 @@ function Ball() {
     }
 
 }
-
+/**
+ * Hole class
+ *
+ * @param {*} color
+ * @param {*} ifWinningHole
+ */
 function Hole(color,ifWinningHole) { // possibility to create more objects of this type
     this.Radius = 15;
     this.x = Math.floor((Math.random() * canvas.width-this.Radius))+ this.Radius;
